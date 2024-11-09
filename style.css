@@ -1,177 +1,214 @@
+/* Style du fond de la page avec désaturation et réduction de la luminosité */
 body {
-    background-color: #4b4a4a;
-    color: #ffffff;
-    line-height: 1.6;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Assure que l'image soit centrée */
+    margin: 0;
+    overflow: hidden; /* Evite que le pseudo-élément dépasse */
 }
 
-.album-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 20px;
-    background: #343434;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-h1 {
-    text-align: center;
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-}
-
-h2 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-}
-
-h3 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-    color: #3636af;
-}
-
-.release-date {
-    font-size: 1.1rem;
-    color: #f1f2f4;
-}
-
-.cover img {
-    max-width: 80%;
-    height: auto;
-    border-radius: 5px;
-    margin: 20px 0;
-}
-
-.tracklist, .other-albums {
-    margin: 20px 0;
-    text-align: left;
-}
-
-.tracklist h3, .other-albums h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #eaebeb;
-}
-
-.tracklist ul, .other-albums ul {
-    list-style-type: none;
-}
-
-.tracklist li, .other-albums li {
-    padding: 8px 0;
-    border-bottom: 1px solid hwb(210 92% 6%);
-}
-
-.video-section {
-    margin: 20px 0;
-}
-
-.video-section iframe {
+body::after {
+    content: ""; /* Nécessaire pour créer un pseudo-élément */
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 315px;
-    border-radius: 8px;
+    height: 100%;
+    background-image: url(https://i.ibb.co/93CTfqX/DALL-E-2024-11-09-14-27-09-A-dramatic-high-resolution-4-K-image-of-dark-storm-clouds-illuminated-by.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: grayscale(100%) brightness(0.4); /* Applique les effets de grisaille et luminosité */
+    animation: zoomBackground 20s infinite alternate ease-in-out; /* Animation de zoom */
+    z-index: -1; /* Assure que le pseudo-élément soit derrière le contenu principal */
 }
 
-footer {
-    margin-top: 20px;
-    font-size: 1rem;
+/* Animation de zoom sur l'image de fond */
+@keyframes zoomBackground {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
 }
 
-.social-media {
-    margin: 20px 0;
+/* Conteneur de l'image de couverture et de la tracklist */
+.cover-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 50px; /* Décale la cover pour que le titre soit au-dessus */
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
 
-.social-media h3 {
-    margin-bottom: 10px;
-}
-
-.social-media a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #ffffff;
-    transition: color 0.3s;
-}
-
-.social-media a:hover {
-    color: #ffffff;
-}
-
-footer a {
-    color: #e7e7e7;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-#coverImage {
-    transition: transform 0.3s ease;
-}
-
-#coverImage:hover {
+/* Animation de lueur au survol de la cover */
+.cover-container:hover {
     transform: scale(1.05);
+    box-shadow: 0px 20px 50px rgba(255, 0, 0, 0.6); /* Lueur rouge */
 }
 
+/* Style de l'image de couverture */
+#coverImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.4s ease; /* Transition de filtre */
+}
+
+/* Lueur et effet sur l'image au survol de la cover */
+.cover-container:hover #coverImage {
+    filter: brightness(1.2) contrast(1.2) saturate(1.5);
+}
+
+/* Style de la tracklist */
 .tracklist {
-    margin: 20px 0;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #3b3b3b, #505050);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fond semi-transparent pour la tracklist */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Cacher la tracklist au départ */
+    transform: scale(0.95); /* Réduit légèrement pour un effet de zoom */
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
 }
 
+/* Animation de la tracklist au survol */
+.cover-container:hover .tracklist {
+    opacity: 1;
+    transform: scale(1);
+    animation: slideIn 0.5s forwards ease-in-out;
+}
+
+/* Animation de slide de bas en haut */
+@keyframes slideIn {
+    0% {
+        transform: translateY(20px) scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Style des éléments de la tracklist */
 .tracklist-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #ffffff; /* Couleur or pour attirer l'œil */
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .tracklist-items {
     list-style-type: none;
     padding: 0;
+    text-align: center;
 }
 
 .tracklist-items li {
-    padding: 15px 0;
-    border-bottom: 1px solid #666;
-    transition: background 0.3s, color 0.3s;
+    margin: 5px 0;
 }
 
 .tracklist-items a {
-    color: #ffffff; /* Couleur or */
+    color: #fff;
     text-decoration: none;
-    transition: color 0.3s;
+    font-size: 18px;
+    transition: color 0.3s ease;
 }
 
 .tracklist-items a:hover {
-    color: #ffffff; /* Change couleur au survol */
-    text-decoration: underline; /* Souligner au survol */
+    color: #a40303; /* Changer la couleur au survol des liens */
 }
 
-.cover img {
-    max-width: 80%;
-    height: auto;
+/* Titre en haut de la page (au-dessus de la cover) */
+.page-title {
+    position: absolute;
+    top: 20px; /* Positionne le titre au-dessus de l'image */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Condiment', sans-serif; /* Utilisation de la police Condiment */
+    font-size: 80px; /* Taille du texte */
+    color: white;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8); /* Ombre portée pour le texte */
+    letter-spacing: 5px;
+    text-align: center;
+    z-index: 1;
+    transition: text-shadow 0.3s ease;
+}
+
+/* L'effet de la lueur rouge lors du survol du titre */
+.page-title:hover {
+    text-shadow: 3px 10px 30px rgba(255, 0, 0, 0.6); /* Lueur rouge plus douce */
+}
+
+/* Positionnement et superposition des images */
+.discographies {
+    position: fixed;
+    bottom: 190px; /* Espacement réduit entre les images et le bas de la page */
+    left: 50%;
+    transform: translateX(-50%); /* Centré horizontalement */
+    display: flex;
+    width: 60%;
+    justify-content: space-between; /* Espacement entre les images */
+    z-index: 1; /* Réduit le z-index de la galerie d'images pour permettre l'interaction avec la cover */
+}
+
+/* Style des images en bas */
+.discographies img {
+    width: 150px; /* Taille ajustée pour les images */
+    height: 150px; /* Taille ajustée pour les images */
+    object-fit: cover;
     border-radius: 5px;
-    margin: 20px 0;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    z-index: 2; /* Assure que les images soient toujours au-dessus des autres éléments */
 }
 
-.other-albums {
-    max-width: 80%;
-    height: auto;
-    border-radius: 5px;
-    margin: 20px 0;
+/* Animation sur les images en bas */
+.discographies img:hover {
+    transform: scale(1.1); /* Zoom sur les images */
+    box-shadow: 0px 10px 20px rgba(255, 0, 0, 0.6); /* Lueur rouge sur les images */
 }
 
-#réscapédesrues {
-    transition: transform 0.3s ease;
+/* Conteneur de l'image de couverture */
+.cover-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 50px; /* Décale la cover pour que le titre soit au-dessus */
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    z-index: 3; /* Le z-index de la cover est plus élevé pour garantir qu'elle reste au-dessus des images */
 }
 
-#réscapédesrues:hover {
+/* Animation de lueur au survol de la cover */
+.cover-container:hover {
     transform: scale(1.05);
+    box-shadow: 0px 20px 50px rgba(255, 0, 0, 0.6); /* Lueur rouge */
+}
+
+/* Style de l'image de couverture */
+#coverImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.4s ease; /* Transition de filtre */
+}
+
+/* Lueur et effet sur l'image au survol de la cover */
+.cover-container:hover #coverImage {
+    filter: brightness(1.2) contrast(1.2) saturate(1.5);
 }
