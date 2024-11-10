@@ -26,16 +26,6 @@ body::after {
     z-index: -1; /* Assure que le pseudo-élément soit derrière le contenu principal */
 }
 
-/* Animation de zoom sur l'image de fond */
-@keyframes zoomBackground {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1.1);
-    }
-}
-
 /* Conteneur de l'image de couverture et de la tracklist */
 .cover-container {
     position: relative;
@@ -167,8 +157,8 @@ body::after {
 
 /* Style des images en bas */
 .discographies img {
-    width: 150px; /* Taille ajustée pour les images */
-    height: 150px; /* Taille ajustée pour les images */
+    width: 200px; /* Taille ajustée pour les images */
+    height: 200px; /* Taille ajustée pour les images */
     object-fit: cover;
     border-radius: 5px;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -211,4 +201,35 @@ body::after {
 /* Lueur et effet sur l'image au survol de la cover */
 .cover-container:hover #coverImage {
     filter: brightness(1.2) contrast(1.2) saturate(1.5);
+}
+
+.nom-artiste{
+    position: absolute;
+    top: 15px; /* Positionne le titre au-dessus de l'image */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Condiment', sans-serif; /* Utilisation de la police Condiment */
+    font-size: 30px; /* Taille du texte */
+    color: white;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8); /* Ombre portée pour le texte */
+    letter-spacing: 5px;
+    text-align: center;
+    z-index: 1;
+    transition: text-shadow 0.3s ease;
+}
+
+
+.nom-artiste:hover {
+    text-shadow: 3px 10px 30px rgba(255, 0, 0, 0.6); /* Lueur rouge plus douce */
+}
+
+/* Effet de transition sur les images */
+.transition {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: scale(1.05); /* Légère augmentation de taille */
+}
+
+/* Animation de mouvement vers la couverture */
+.cover-container .transition {
+    opacity: 0.8; /* Réduction légère de l'opacité pour effet de glissement */
 }
